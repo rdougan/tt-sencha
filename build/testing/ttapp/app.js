@@ -1,4 +1,4 @@
-function _e510818ab9982b29fbce037f0427a92c4883ee47(){};//@tag foundation,core
+function _0a6bd2613de5d0e6a7acb79fa888e3c6b6d48bc4(){};//@tag foundation,core
 //@define Ext
 /**
  * @class Ext
@@ -62867,9 +62867,15 @@ Ext.define('ttapp.store.Trinkets', {
 Ext.define('ttapp.util.ContactsCleaner', {
     singleton: true,
     encode_utf8: function(s) {
+        if (s === null) {
+            return null;
+        }
         return unescape(encodeURIComponent(s));
     },
     decode_utf8: function(s) {
+        if (s === null) {
+            return null;
+        }
         return decodeURIComponent(escape(s));
     },
     cleanPhoneNumber: function(dialcode, n) {
@@ -62992,102 +62998,102 @@ Ext.define('ttapp.util.ContactsProxy', {
         });
     },
     process: function(cStore) {
-        // if (Ext.os.deviceType == 'Phone') {
-        //     var opts = new ContactFindOptions();
-        //     opts.filter = "";
-        //     opts.multiple = true;
-        //     var contactsConfig = {
-        //         options: opts,
-        //         fields: ["name", "phoneNumbers"],
-        //         success: function(contacts){
-        //
-        //             if ( contacts.length > 0){
-        //                 x = ttapp.util.ContactsCleaner.process(contacts);
-        //                 ttapp.util.ContactsProxy.areOnTinktime(cStore, x);
-        //            }
-        //         },
-        //
-        //         failure: function(context){
-        //              Ext.Msg.alert('Change privacy!', 'Allow tinktime in settings > privacy > contacts', Ext.emptyFn);
-        //        },
-        //        scope: this,
-        //        includeImages: false
-        //     };
-        //     Ext.device.Contacts.getContacts(contactsConfig);
-        // }
-        // else{
-        //populate static test values
-        var contacts = [
-                {
-                    'id': 1,
-                    'name': {
-                        'givenName': 'nike',
-                        'familyName': 'shikari'
+        if (Ext.os.deviceType == 'Phone') {
+            var opts = new ContactFindOptions();
+            opts.filter = "";
+            opts.multiple = true;
+            var contactsConfig = {
+                    options: opts,
+                    fields: [
+                        "name",
+                        "phoneNumbers"
+                    ],
+                    success: function(contacts) {
+                        if (contacts.length > 0) {
+                            x = ttapp.util.ContactsCleaner.process(contacts);
+                            ttapp.util.ContactsProxy.areOnTinktime(cStore, x);
+                        }
                     },
-                    'phoneNumbers': [
-                        {
-                            'value': '+46705438947'
-                        }
-                    ],
-                    'first_name': 'Eddåäöie',
-                    'last_name': 'Huang',
-                    'on_tinktime': true,
-                    'phone_type': 'mobile',
-                    'phone_number': '+46700907802'
-                },
-                {
-                    'id': 2,
-                    'phoneNumbers': [
-                        {
-                            'value': '+46700907802'
-                        }
-                    ],
-                    'first_name': 'Edith',
-                    'last_name': 'Jones',
-                    'on_tinktime': true,
-                    'phone_type': 'home',
-                    'phone_number': '(514) 316-4528'
-                },
-                {
-                    'id': 3,
-                    'name': {
-                        'givenName': 'nike',
-                        'familyName': 'shikari'
+                    failure: function(context) {
+                        Ext.Msg.alert('Change privacy!', 'Allow tinktime in settings > privacy > contacts', Ext.emptyFn);
                     },
-                    'phoneNumbers': [
-                        {
-                            'value': '0101010101'
-                        }
-                    ],
-                    'first_name': 'Elijah',
-                    'last_name': 'Talinger',
-                    'on_tinktime': true,
-                    'phone_type': 'mobile',
-                    'phone_number': '(235) 453-1258'
-                },
-                {
-                    'id': 4,
-                    'name': {
-                        'givenName': 'nike',
-                        'familyName': 'shikari'
+                    scope: this,
+                    includeImages: false
+                };
+            Ext.device.Contacts.getContacts(contactsConfig);
+        } else {
+            //populate static test values
+            var contacts = [
+                    {
+                        'id': 1,
+                        'name': {
+                            'givenName': 'nike',
+                            'familyName': 'shikari'
+                        },
+                        'phoneNumbers': [
+                            {
+                                'value': '+46705438947'
+                            }
+                        ],
+                        'first_name': 'Eddåäöie',
+                        'last_name': 'Huang',
+                        'on_tinktime': true,
+                        'phone_type': 'mobile',
+                        'phone_number': '+46700907802'
                     },
-                    'phoneNumbers': [
-                        {
-                            'value': '+0101010101'
-                        }
-                    ],
-                    'first_name': 'Emanuel',
-                    'last_name': 'Lindberg',
-                    'on_tinktime': false,
-                    'phone_type': 'work',
-                    'phone_number': '(978) 165-3214'
-                }
-            ];
-        x = ttapp.util.ContactsCleaner.process(contacts, 'default');
-        this.areOnTinktime(cStore, x);
+                    {
+                        'id': 2,
+                        'phoneNumbers': [
+                            {
+                                'value': '+46700907802'
+                            }
+                        ],
+                        'first_name': 'Edith',
+                        'last_name': 'Jones',
+                        'on_tinktime': true,
+                        'phone_type': 'home',
+                        'phone_number': '(514) 316-4528'
+                    },
+                    {
+                        'id': 3,
+                        'name': {
+                            'givenName': 'nike',
+                            'familyName': 'shikari'
+                        },
+                        'phoneNumbers': [
+                            {
+                                'value': '0101010101'
+                            }
+                        ],
+                        'first_name': null,
+                        'last_name': 'Talinger',
+                        'on_tinktime': true,
+                        'phone_type': 'mobile',
+                        'phone_number': '(235) 453-1258'
+                    },
+                    {
+                        'id': 4,
+                        'name': {
+                            'givenName': 'nike',
+                            'familyName': 'shikari'
+                        },
+                        'phoneNumbers': [
+                            {
+                                'value': '+0101010101'
+                            }
+                        ],
+                        'first_name': 'Emanuel',
+                        'last_name': 'Lindberg',
+                        'on_tinktime': false,
+                        'phone_type': 'work',
+                        'phone_number': '(978) 165-3214'
+                    }
+                ];
+            x = ttapp.util.ContactsCleaner.process(contacts, 'default');
+            this.areOnTinktime(cStore, x);
+        }
     }
 });
-// }
 Ext.define('ttapp.store.Contacts', {
     extend: Ext.data.Store,
     //requires: [ 'Ext.data.proxy.LocalStorage'],
@@ -63140,7 +63146,7 @@ Ext.define('ttapp.store.Contacts', {
                         'value': '0101010101'
                     }
                 ],
-                'first_name': 'Elijah',
+                'first_name': null,
                 'last_name': 'Talinger',
                 'on_tinktime': true,
                 'phone_type': 'mobile',
@@ -63174,7 +63180,16 @@ Ext.define('ttapp.store.Contacts', {
         if (i === -1) {
             return phoneNumber;
         } else {
-            return this.getAt(i).get('first_name') + ' ' + this.getAt(i).get('last_name');
+            var fn = this.getAt(i).get('first_name'),
+                ln = this.getAt(i).get('last_name'),
+                fullname = '';
+            if (Ext.isString(fn)) {
+                fullname = fn + ' ';
+            }
+            if (Ext.isString(ln)) {
+                fullname = fullname + ln;
+            }
+            return fullname;
         }
     },
     isOnTinkTime: function(phoneNumber) {
@@ -63282,8 +63297,9 @@ Ext.define('ttapp.util.FeedProxy', {
                     if (response.status != 200) {
                         return 0;
                     }
-                    var messages = Ext.JSON.decode(response.responseText.trim());
-                    Ext.Array.each(messages, function(message) {
+                    var resp = Ext.JSON.decode(response.responseText.trim());
+                    console.log("total messages: " + resp.totalcount);
+                    Ext.Array.each(resp.messages, function(message) {
                         // increment pagenumber if msgs were received
                         //var page_number = ttapp.config.Config.getCurrentFeedPageNumber() + 1;
                         //ttapp.config.Config.setCurrentFeedPageNumber(page_number);
@@ -63384,7 +63400,8 @@ Ext.define('ttapp.model.Profile', {
             'phone_number',
             'is_verified',
             'last_updated_on',
-            'selected_trinket_name'
+            'selected_trinket_name',
+            'last_seconds_sent'
         ],
         validations: [
             {
@@ -63417,7 +63434,7 @@ Ext.define('ttapp.store.Profile', {
             callback(false);
         }
     },
-    addProfile: function(phoneNumber, isVerified, lastUpdatedOn, selectedTrinketName) {
+    addProfile: function(phoneNumber, isVerified, lastUpdatedOn, selectedTrinketName, lastSecondsSent) {
         var result = false;
         //empty store if exists
         //this.removeAll();
@@ -63428,7 +63445,8 @@ Ext.define('ttapp.store.Profile', {
                 phone_number: phoneNumber,
                 is_verified: isVerified,
                 last_updated_on: lastUpdatedOn,
-                selected_trinket_name: selectedTrinketName
+                selected_trinket_name: selectedTrinketName,
+                last_seconds_sent: lastSecondsSent
             });
         var errors = usr.validate();
         if (errors.isValid()) {
@@ -63462,9 +63480,20 @@ Ext.define('ttapp.store.Profile', {
         }
         this.sync();
     },
+    setLastSecondsSent: function(seconds) {
+        var record = this.getAt(0);
+        if (record) {
+            record.set('last_seconds_sent', seconds);
+        }
+        this.sync();
+    },
     getActiveTrinket: function(callback) {
         var record = this.getAt(0);
         callback(record ? record.get('selected_trinket_name') : false);
+    },
+    getLastSentSeconds: function(callback) {
+        var record = this.getAt(0);
+        callback(record ? record.get('last_seconds_sent') : false);
     }
 });
 
@@ -63666,8 +63695,7 @@ Ext.define('ttapp.view.TimerClock', {
     paused: false,
     clockIntervalHook: undefined,
     config: {
-        left: 0,
-        top: 0
+        itemId: 'runningClock'
     },
     start: function() {
         var me = this,
@@ -63681,8 +63709,6 @@ Ext.define('ttapp.view.TimerClock', {
                     me.stop();
                 }
             };
-        this.setTop(ttapp.config.Config.getHeight() * 0.05);
-        this.setLeft((ttapp.config.Config.getWidth() - 42) / 2);
         me.clockIntervalHook = setInterval(updateClock, 1000);
         return me;
     },
@@ -63731,7 +63757,7 @@ Ext.define('ttapp.config.Config', {
         height: (window.innerHeight > 0) ? window.innerHeight : screen.height,
         unreadMessage: false,
         currentFeedPageNumber: 0,
-        feedPageSize: 9
+        feedPageSize: 8
     },
     constructor: function(config) {
         this.initConfig(config);
@@ -63787,12 +63813,16 @@ Ext.define('ttapp.controller.Tink', {
         }
         Ext.getStore('profilestore').getActiveTrinket(function(trinketName) {
             Ext.getStore('profilestore').getActiveTrinket(function(trinketName) {
+                Ext.getStore('profilestore').setLastSecondsSent(periodInSeconds);
                 me.getApplication().getController('SendTo').showSendTo(me, periodInSeconds, trinketName);
                 Ext.getCmp('tinkScreen').removeCls('show-full-frame');
             });
         });
     },
     onShow: function() {
+        Ext.Viewport.mask({
+            xtype: 'loadmask'
+        });
         this.resetTimerClock();
         this.useActiveTrinket();
         this.updateNotifyRedDot();
@@ -63836,6 +63866,7 @@ Ext.define('ttapp.controller.Tink', {
                     iframe.dom.onload = function() {
                         iframe.dom.style.opacity = 1;
                         iframe.dom.onload = null;
+                        Ext.Viewport.unmask();
                     };
                     iframe.dom.src = activeTrinketSwiffyPath;
                 });
@@ -64065,13 +64096,23 @@ Ext.define('ttapp.controller.Landing', {
     //, 'Ext.device.Push', 'Ext.device.Device'
     config: {
         refs: {
-            btnBegin: 'button[cls~=clsBegin]'
+            btnBegin: 'button[cls~=clsBegin]',
+            closeintro: 'button[cls~=close-intro-goto-auth]'
         },
         control: {
             'btnBegin': {
                 tap: 'onUserAction'
+            },
+            closeintro: {
+                tap: 'onCloseIntro'
             }
         }
+    },
+    onCloseIntro: function() {
+        Ext.ComponentQuery.query('#introPage')[0].destroy();
+        Ext.Viewport.setActiveItem('authenticate', {
+            type: 'fade'
+        });
     },
     onUserAction: function() {
         if (this._animating) {
@@ -64094,9 +64135,11 @@ Ext.define('ttapp.controller.Landing', {
                     Ext.Viewport.animateActiveItem(item, 'slide');
                 }, 180);
             } else {
-                Ext.Viewport.animateActiveItem('authenticate', {
-                    type: 'slide'
-                });
+                setTimeout(function() {
+                    Ext.Viewport.animateActiveItem('intro', {
+                        type: 'fade'
+                    });
+                }, 400);
             }
         });
     }
@@ -64155,7 +64198,7 @@ Ext.define('ttapp.controller.Authenticate', {
         me.myPhoneNumber = phoneNumber;
         // store user profile locally
         Ext.getStore('trinketstore').getDefaultTrinket(function(trinketName) {
-            if (Ext.getStore('profilestore').addProfile(phoneNumber, false, (new Date()).valueOf(), trinketName)) {
+            if (Ext.getStore('profilestore').addProfile(phoneNumber, false, (new Date()).valueOf(), trinketName, 0)) {
                 me.sendCode(phoneNumber);
                 Ext.Viewport.animateActiveItem('confirmphonenumber', {
                     type: 'slide'
@@ -64301,13 +64344,18 @@ Ext.define('ttapp.controller.Split', {
             direction: 'left'
         });
     },
-    showSentTrinketThumbnail: function(imgUrl) {
-        Ext.getStore('profilestore').getActiveTrinket(function(trinketName) {
-            Ext.getStore('trinketstore').getThumbnailPath(trinketName, function(activeTrinketThumbnailPath) {
-                var width = ttapp.config.Config.getWidth(),
-                    height = ttapp.config.Config.getHeight();
-                var pt = Ext.ComponentQuery.query('#sentTrinket')[0];
-                pt.setSrc(activeTrinketThumbnailPath);
+    showSentTrinketThumbnail: function() {
+        Ext.getStore('profilestore').getLastSentSeconds(function(secondsSent) {
+            Ext.getStore('profilestore').getActiveTrinket(function(trinketName) {
+                Ext.getStore('trinketstore').getThumbnailPath(trinketName, function(activeTrinketThumbnailPath) {
+                    console.log(secondsSent);
+                    var sendSec = Ext.select('.clsSplitSeconds');
+                    sendSec.setHtml(secondsSent + ' S');
+                    var width = ttapp.config.Config.getWidth(),
+                        height = ttapp.config.Config.getHeight();
+                    var pt = Ext.ComponentQuery.query('#sentTrinket')[0];
+                    pt.setSrc(activeTrinketThumbnailPath);
+                });
             });
         });
     }
@@ -64345,25 +64393,25 @@ Ext.define('ttapp.controller.Feed', {
     onPrevious: function() {
         var config = ttapp.config.Config,
             previous = config.getCurrentFeedPageNumber();
-        this.getPreviousBtn().setDisabled(true);
+        this.getPreviousBtn().setHidden(true);
         if (previous == 0) {
             return;
         }
-        this.getNextBtn().setDisabled(true);
+        this.getNextBtn().setHidden(true);
         config.setCurrentFeedPageNumber(previous - 1);
         ttapp.util.FeedProxy.process(true, function() {
-            this.getPreviousBtn().setDisabled(config.getCurrentFeedPageNumber() < 1);
-            this.getNextBtn().setDisabled(Ext.getStore('Messages').getCount() < config.getFeedPageSize());
+            this.getPreviousBtn().setHidden(config.getCurrentFeedPageNumber() < 1);
+            this.getNextBtn().setHidden(Ext.getStore('Messages').getCount() < config.getFeedPageSize());
         }, this);
     },
     onNext: function() {
-        this.getPreviousBtn().setDisabled(true);
-        this.getNextBtn().setDisabled(true);
+        this.getPreviousBtn().setHidden(true);
+        this.getNextBtn().setHidden(true);
         var config = ttapp.config.Config;
         config.setCurrentFeedPageNumber(config.getCurrentFeedPageNumber() + 1);
         ttapp.util.FeedProxy.process(true, function() {
-            this.getPreviousBtn().setDisabled(false);
-            this.getNextBtn().setDisabled(Ext.getStore('Messages').getCount() < config.getFeedPageSize());
+            this.getPreviousBtn().setHidden(false);
+            this.getNextBtn().setHidden(Ext.getStore('Messages').getCount() < config.getFeedPageSize());
         }, this);
     },
     onShowTinkInFeed: function(list, idx, target, record, evt) {
@@ -64461,7 +64509,9 @@ Ext.define('ttapp.controller.ReplayTink', {
                         {
                             xtype: 'toolbar',
                             docked: 'top',
-                            cls: 'top-bar',
+                            html: seconds + ' sec',
+                            zIndex: 2,
+                            cls: 'replay-top-bar',
                             items: [
                                 {
                                     xtype: 'button',
@@ -64472,25 +64522,19 @@ Ext.define('ttapp.controller.ReplayTink', {
                         },
                         {
                             xtype: 'panel',
-                            cls: 'clsTimerClock',
-                            zIndex: 9,
-                            flex: 1,
-                            html: seconds + ' sec'
-                        },
-                        {
-                            xtype: 'panel',
                             itemId: 'replaycomponent',
-                            flex: 5,
+                            //flex: 5,
                             html: '<iframe id="replaytinkcontainer" class="tinkanimation" allowtransparence="true"></iframe>'
                         }
                     ]
                 });
             if (text.length > 0) {
                 r.add({
-                    xtype: 'panel',
+                    xtype: 'toolbar',
+                    docked: 'bottom',
                     cls: 'clsReplayTextMessage',
                     flex: 1,
-                    html: '<h2>' + text + '</h2>'
+                    title: text
                 });
             }
             var trinketArea = r.child('#replaycomponent'),
@@ -64541,51 +64585,42 @@ Ext.define('ttapp.view.Feed', {
     extend: Ext.Container,
     xtype: 'feed',
     config: {
-        layout: 'vbox',
+        layout: 'fit',
         cls: 'cls-tt-tinkbox bg-transparent-colored flip-design-left',
         items: [
             {
                 xtype: 'dogear'
             },
             {
-                xtype: 'list',
-                flex: 5,
-                baseCls: 'clsFeed',
-                itemCls: 'clsMessageItem',
-                // infinite: true,
-                // itemHeight: 50,
-                //style: 'opacity:0.5;',
-                pinHeaders: false,
+                layout: 'vbox',
                 scrollable: {
                     direction: 'vertical'
-                },
-                itemTpl: [
-                    '<tpl if=\'for_inbox == true\'>',
-                    '<div class="left-{for_inbox}"><div class="{unread} read-or-not"><div class="clsMessage{to_user_name}"><div class="clsTrinketMessage"><div class="clsSeconds">{seconds_sent}<span>s</span></div><div class="clsTrinketFile"><div class="img-bg" style="background:url({trinket_file_path});"></div></div></div><div class="clsTextMessage"><div class="name-panel">{from_user_name}</div><div class="des-panel">{text}</div><div class="date-panel">{formatted_timestamp}</div></div></div></div></div>',
-                    '<tpl else>',
-                    '<div class="left-{for_inbox}"><div class="{unread} read-or-not"><div class="clsMessage{to_user_name}"><div class="clsTrinketMessage"><div class="clsSeconds">{seconds_sent}<span>s</span></div><div class="clsTrinketFile"><div class="img-bg" style="background:url({trinket_file_path});"></div></div></div><div class="clsTextMessage"><div class="name-panel">{to_user_name}</div><div class="des-panel">{text}</div><div class="date-panel">{formatted_timestamp}</div></div></div></div></div>',
-                    '</tpl>'
-                ],
-                store: 'Messages'
-            },
-            {
-                layout: {
-                    type: 'hbox',
-                    align: 'stretch'
-                },
-                defaults: {
-                    flex: 1
                 },
                 items: [
                     {
                         xtype: 'button',
-                        text: 'previous',
+                        text: 'back',
                         itemId: 'previous',
-                        disabled: true
+                        hidden: true
+                    },
+                    {
+                        xtype: 'list',
+                        baseCls: 'clsFeed',
+                        itemCls: 'clsMessageItem',
+                        // pinHeaders: false,
+                        scrollable: false,
+                        itemTpl: [
+                            '<tpl if=\'for_inbox == true\'>',
+                            '<div class="left-{for_inbox}"><div class="{unread} read-or-not"><div class="clsMessage{to_user_name}"><div class="clsTrinketMessage"><div class="clsSeconds">{seconds_sent}<span>s</span></div><div class="clsTrinketFile"><div class="img-bg" style="background:url({trinket_file_path});"></div></div></div><div class="clsTextMessage"><div class="name-panel">{from_user_name}</div><div class="des-panel">{text}</div><div class="date-panel">{formatted_timestamp}</div></div></div></div></div>',
+                            '<tpl else>',
+                            '<div class="left-{for_inbox}"><div class="{unread} read-or-not"><div class="clsMessage{to_user_name}"><div class="clsTrinketMessage"><div class="clsSeconds">{seconds_sent}<span>s</span></div><div class="clsTrinketFile"><div class="img-bg" style="background:url({trinket_file_path});"></div></div></div><div class="clsTextMessage"><div class="name-panel">{to_user_name}</div><div class="des-panel">{text}</div><div class="date-panel">{formatted_timestamp}</div></div></div></div></div>',
+                            '</tpl>'
+                        ],
+                        store: 'Messages'
                     },
                     {
                         xtype: 'button',
-                        text: 'next',
+                        text: 'show more',
                         itemId: 'next'
                     }
                 ]
@@ -65131,7 +65166,7 @@ Ext.define('ttapp.view.Split', {
                 itemId: 'sentTrinket',
                 src: 'resources/images/others/tink_design.png',
                 cls: 'prev-trinket',
-                html: 'Done!',
+                html: '<div class="clsSplitSeconds">1 S</div><div class="clsSplitDone">Done!</div>',
                 styleHtmlCls: 'clsSentTrinket',
                 styleHtmlContent: true
             },
@@ -65219,6 +65254,7 @@ Ext.define('ttapp.view.PrivacyPolicy', {
             {
                 xtype: 'titlebar',
                 docked: 'top',
+                zIndex: 3,
                 cls: 'top-bar',
                 title: 'Privacy Policy',
                 items: [
@@ -65233,6 +65269,40 @@ Ext.define('ttapp.view.PrivacyPolicy', {
                         }
                     }
                 ]
+            },
+            {
+                xtype: 'panel',
+                html: '<iframe class="tinkanimation" src="http://tinktime.com/static/common/privacy.html"> </iframe>'
+            }
+        ]
+    }
+});
+
+Ext.define('ttapp.view.Intro', {
+    extend: Ext.Container,
+    xtype: 'intro',
+    config: {
+        itemId: 'introPage',
+        layout: {
+            type: 'vbox',
+            align: 'middle'
+        },
+        items: [
+            {
+                xtype: 'toolbar',
+                docked: 'top',
+                cls: 'top-bar',
+                items: [
+                    {
+                        xtype: 'button',
+                        cls: 'top-btn btn-delete close-intro-goto-auth',
+                        docked: 'right'
+                    }
+                ]
+            },
+            {
+                xtype: 'panel',
+                html: '<iframe class="tinkanimation" src="http://tinktime.com/static/common/introduction.html" ></iframe>'
             }
         ]
     }
@@ -65274,7 +65344,8 @@ Ext.application({
         'DogEar',
         'Split',
         'Options',
-        'PrivacyPolicy'
+        'PrivacyPolicy',
+        'Intro'
     ],
     stores: [
         'Trinkets',
